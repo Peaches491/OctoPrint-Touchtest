@@ -1,0 +1,61 @@
+#sidebar_plugin_touchtest * .settings {
+  /*display: flex;*/
+  /*justify-content: center;*/
+  /*align-items: stretch;*/
+  width: 100%;
+
+  /*flex-direction: column;*/
+}
+
+#sidebar_plugin_touchtest * .settings-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 0 2em 0 2em;
+}
+
+#sidebar_plugin_touchtest * .settings-label {
+  
+}
+
+#sidebar_plugin_touchtest * .settings-label,
+#sidebar_plugin_touchtest * .settings-controls {
+  width: auto;
+  margin-left: auto;
+}
+
+/*.settings-group {*/
+  /*display: inline-flex;*/
+  /*flex-direction: row;*/
+/*}*/
+
+/*.settings-group * input {*/
+  /*display: inline-flex;*/
+  /*min-width: 0;*/
+  /*width: 95%;*/
+  /*margin-right: 15px;*/
+  /*flex: 1 100%;*/
+/*}*/
+
+#buttonGrid {
+  /*margin: auto;*/
+  /*text-align: center;*/
+  display: block;
+}
+
+#buttonGrid > .buttonRow {
+  display: inline-flex;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+}
+
+#buttonGrid > .buttonRow > button:first-of-type,
+#buttonGrid > .buttonRow > button:last-of-type {
+  /*margin: auto;*/
+}
+
+#buttonGrid * button {
+  width: 3em;
+  height: 3em;
+}
