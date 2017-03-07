@@ -9,11 +9,13 @@ $(function() {
     var self = this;
 
     self.settings = parameters[0]
+    self.loginState = parameters[1]
 
     self.bedWidth = ko.observable("200.00")
     self.bedDepth = ko.observable("200.00")
     self.edgeOffset = ko.observable("15.00")
     self.feedrate = ko.observable("1000")
+    self.isOperational = ko.observable(undefined);
 
     self.testPrint = function(wMult, dMult) {
       wEffective = self.bedWidth() - 2* self.edgeOffset()
@@ -39,7 +41,7 @@ $(function() {
   // view model class, parameters for constructor, container to bind to
   OCTOPRINT_VIEWMODELS.push([
     TouchtestViewModel,
-    [ "settingsViewModel" ],
+    [ "settingsViewModel", "loginStateViewModel" ],
     [ "#sidebar_plugin_touchtest" ]
   ]);
 });
