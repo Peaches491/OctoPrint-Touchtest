@@ -16,6 +16,7 @@ $(function() {
     self.edgeOffset = ko.observable("15.00")
     self.feedrate = ko.observable("1000")
     self.isOperational = ko.observable(undefined);
+    self.isPrinting = ko.observable(undefined);
 
     self.testPrint = function(wMult, dMult) {
       wEffective = self.bedWidth() - 2* self.edgeOffset()
@@ -35,6 +36,23 @@ $(function() {
       self.bedDepth(self.settings.settings.plugins.touchtest.bedDepth());
       self.edgeOffset(self.settings.settings.plugins.touchtest.edgeOffset());
       self.feedrate(self.settings.settings.plugins.touchtest.feedrate());
+    }
+
+    self.fromCurrentData = function(data) {
+      self._processStateData(data.state);
+    };
+
+    self.fromHistoryData = function(data) {
+      self._processStateData(data.state);
+    };
+
+    self._processStateData = function(data) {
+      self.isOperational(data.flags.operational);
+      self.isPrinting(data.flags.printing);
+    };
+
+    self.movementEnabled = function() {
+      return (self.isOperational() && self.loginState.isUser() && ! self.isPrinting());
     }
   }
 
