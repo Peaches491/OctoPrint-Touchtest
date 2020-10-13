@@ -8,6 +8,7 @@ $(function() {
   function TouchtestViewModel(parameters) {
     var self = this;
     var homed = false;
+    var code = [];
 
     self.settings = parameters[0]
     self.loginState = parameters[1]
@@ -25,29 +26,18 @@ $(function() {
       xPos = 1.0*self.edgeOffset() + (wMult*wEffective);
       yPos = 1.0*self.edgeOffset() + (dMult*dEffective);
 
+      code = [];
       if (!homed) { //Home the printer if not homed
-        code = "G28";
-        OctoPrint.control.sendGcode(code);
-        console.log("TouchTest: Sending command \"" + code +"\"");
+        code.push("G28");
         homed = true;
       }
 
-      OctoPrint.control.sendGcode("G90"); //Set to Absolute Positioning
-        
-      code = "G0 Z1"; //Move 1mm away from plate
-      OctoPrint.control.sendGcode(code);
-      console.log("TouchTest: Sending command \"" + code +"\"");
+      code.push("G90"); //Set to Absolute Positioning
+      code.push("G0 Z1"); //Raise bed 1mm
+      code.push("G0 X" + xPos + " Y" + yPos + " F" + self.feedrate()); //Go to desired position
+      code.push("G0 Z0"); //Lower bed back to zero
 
-      code = "G0";
-      code += " X" + xPos;
-      code += " Y" + yPos;
-      code += " F" + self.feedrate();
       OctoPrint.control.sendGcode(code);
-      console.log("TouchTest: Sending command \"" + code +"\"");
-
-      code = "G0 Z0"; //Move back to touch plate
-      OctoPrint.control.sendGcode(code);
-      console.log("TouchTest: Sending command \"" + code +"\"");
     }
 
     self.onBeforeBinding = function() {
