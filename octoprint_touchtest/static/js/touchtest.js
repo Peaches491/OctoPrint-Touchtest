@@ -32,6 +32,8 @@ $(function() {
         homed = true;
       }
 
+      OctoPrint.control.sendGcode("G90"); //Set to Absolute Positioning
+        
       code = "G0 Z1"; //Move 1mm away from plate
       OctoPrint.control.sendGcode(code);
       console.log("TouchTest: Sending command \"" + code +"\"");
