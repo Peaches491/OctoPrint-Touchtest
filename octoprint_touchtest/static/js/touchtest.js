@@ -7,6 +7,8 @@
 $(function() {
   function TouchtestViewModel(parameters) {
     var self = this;
+    var homed = false;
+    var code = [];
 
     self.settings = parameters[0]
     self.loginState = parameters[1]
@@ -23,12 +25,19 @@ $(function() {
       dEffective = self.bedDepth() - 2* self.edgeOffset()
       xPos = 1.0*self.edgeOffset() + (wMult*wEffective);
       yPos = 1.0*self.edgeOffset() + (dMult*dEffective);
-      code = "G0";
-      code += " X" + xPos;
-      code += " Y" + yPos;
-      code += " F" + self.feedrate();
+
+      code = [];
+      if (!homed) { //Home the printer if not homed
+        code.push("G28");
+        homed = true;
+      }
+
+      code.push("G90"); //Set to Absolute Positioning
+      code.push("G0 Z1"); //Raise bed 1mm
+      code.push("G0 X" + xPos + " Y" + yPos + " F" + self.feedrate()); //Go to desired position
+      code.push("G0 Z0"); //Lower bed back to zero
+
       OctoPrint.control.sendGcode(code);
-      console.log("TouchTest: Sending command \"" + code +"\"");
     }
 
     self.onBeforeBinding = function() {
