@@ -8,7 +8,6 @@ $(function() {
   function TouchtestViewModel(parameters) {
     var self = this;
     var homed = false;
-    var code = [];
 
     self.settings = parameters[0]
     self.loginState = parameters[1]
@@ -21,12 +20,12 @@ $(function() {
     self.isPrinting = ko.observable(undefined);
 
     self.testPrint = function(wMult, dMult) {
-      wEffective = self.bedWidth() - 2* self.edgeOffset()
-      dEffective = self.bedDepth() - 2* self.edgeOffset()
-      xPos = 1.0*self.edgeOffset() + (wMult*wEffective);
-      yPos = 1.0*self.edgeOffset() + (dMult*dEffective);
+      var wEffective = self.bedWidth() - 2* self.edgeOffset()
+      var dEffective = self.bedDepth() - 2* self.edgeOffset()
+      var xPos = 1.0*self.edgeOffset() + (wMult*wEffective);
+      var yPos = 1.0*self.edgeOffset() + (dMult*dEffective);
 
-      code = [];
+      var code = [];
       if (!homed) { //Home the printer if not homed
         code.push("G28");
         homed = true;
