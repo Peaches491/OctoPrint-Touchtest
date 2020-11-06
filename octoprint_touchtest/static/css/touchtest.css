@@ -15,7 +15,7 @@
 }
 
 #sidebar_plugin_touchtest * .settings-label {
-  
+
 }
 
 #sidebar_plugin_touchtest * .settings-label,
@@ -44,7 +44,7 @@
 }
 
 #buttonGrid > .buttonRow {
-  display: inline-flex;
+  display: flex;
   justify-content: center;
   align-items: stretch;
   width: 100%;
